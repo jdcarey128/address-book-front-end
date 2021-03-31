@@ -18,8 +18,7 @@ export default createStore({
     }
   },
   getters: {
-    getFilteredContacts (state) {
-      const contactsLetter = state.contactsDisplay
+    getFilteredContacts: (state) => (contactsLetter) => {
       const filteredContacts = state.contacts.filter(contact =>
         contact.last_name[0].toUpperCase() === contactsLetter
       )

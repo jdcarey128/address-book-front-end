@@ -1,7 +1,7 @@
 <template>
   <div v-if="$store.state.contactsDisplay !== ''" class="contact-info-cards">
     <h1>Contacts: {{ $store.state.contactsDisplay }}</h1>
-    <div v-for="contact in $store.getters.getFilteredContacts" class="contact-info-card" :key=contact.id>
+    <div v-for="contact in $store.getters.getFilteredContacts($store.state.contactsDisplay)" class="contact-info-card" :key=contact.id>
       <p> {{ contact.first_name }} {{ contact.last_name }}</p>
       <p v-if="contact.phone_number">Phone number: {{ contact.phone_number}}</p>
       <p v-if="contact.street_address_2"> {{ contact.street_address }}, {{ contact.street_address_2 }}<br>
@@ -40,9 +40,9 @@ export default {
   border-radius: 10px;
   border: 1px solid #2c3e50;
   cursor: pointer;
+  transition: all 0.25s ease;
   &:hover {
     color: #42b983;
-    font-weight: bold;
   }
 }
 </style>
