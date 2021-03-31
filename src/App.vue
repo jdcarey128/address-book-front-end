@@ -7,19 +7,10 @@
       <router-link to="#">Log Out</router-link>
     </div>
   </div>
-  <div class="side-navigation">
-    <ContactTab/>
-  </div>
   <router-view/>
 </template>
 
 <script>
-import ContactTab from '@/components/ContactTab.vue'
-
-export default {
-  name: 'App',
-  components: { ContactTab }
-}
 </script>
 
 <style lang="scss">
@@ -56,16 +47,4 @@ export default {
   }
 }
 
-.side-navigation {
-  height: 89vh;
-  width: 10%;
-  position: fixed;
-  padding: 10px;
-  margin-bottom: 0px;
-  z-index: 0;
-  left: 0;
-  background-color: #dee4eb;
-  overflow-x: hidden;
-  overflow-y: scroll;
-}
 </style>
