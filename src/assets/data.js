@@ -12,7 +12,7 @@ export const data = {
       group: 'friend',
       phone_number: null,
       street_address: '1234 that way',
-      street_address_2: null,
+      street_address_2: 'unit 0',
       city: 'Denver',
       state: 'CO',
       zipcode: '80019'

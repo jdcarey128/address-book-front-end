@@ -1,9 +1,11 @@
 <template>
-  <div class="side-navigation">
-    <ContactTab/>
-  </div>
-  <div class="contact-info-wrapper">
-    <ContactInfoCard/>
+  <div class="home-content-wrapper">
+    <div class="home-side-navigation">
+      <ContactTab/>
+    </div>
+    <div class="home-contact-info-wrapper">
+      <ContactInfoCard/>
+    </div>
   </div>
 </template>
 
@@ -23,16 +25,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.side-navigation {
-  height: 89vh;
-  width: 12%;
-  position: fixed;
-  padding: 10px;
-  margin-bottom: 0px;
-  z-index: 0;
-  left: 0;
-  background-color: #dee4eb;
-  overflow-x: hidden;
-  overflow-y: scroll;
+.home-content-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  grid-gap: 20px;
+  .home-side-navigation {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    background-color: #dee4eb;
+    border-right: 1px solid #2c3e50;
+  }
 }
 </style>
