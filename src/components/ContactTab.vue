@@ -8,7 +8,7 @@
         {{ contact }}
       </div>
       <div class="contact-count">
-        xxx contacts
+        contact count: {{ $store.getters.getFilteredContacts(contact).length }}
       </div>
     </div>
   </div>
@@ -37,9 +37,9 @@ export default {
     text-align: center;
     font-weight: bold;
     text-decoration: underline;
+    cursor: pointer;
     &:hover {
       color: #42b983;
-      cursor: pointer;
     }
   }
   .contact-tab-list {
