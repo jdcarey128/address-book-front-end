@@ -8,10 +8,19 @@
     </div>
   </div>
   <div class="side-navigation">
-    Contacts
+    <ContactTab/>
   </div>
   <router-view/>
 </template>
+
+<script>
+import ContactTab from '@/components/ContactTab.vue'
+
+export default {
+  name: 'App',
+  components: { ContactTab }
+}
+</script>
 
 <style lang="scss">
 #app {
@@ -48,20 +57,15 @@
 }
 
 .side-navigation {
-  height: 100%;
-  width: 80px;
+  height: 89vh;
+  width: 10%;
   position: fixed;
-  z-index: 1;
+  padding: 10px;
+  margin-bottom: 0px;
+  z-index: 0;
   left: 0;
   background-color: #dee4eb;
   overflow-x: hidden;
-  color: #2c3e50;
-  padding: 30px;
-  font-size: 20px;
-  font-weight: bold;
-
-  &:hover {
-    color: #42b983;
-  }
+  overflow-y: scroll;
 }
 </style>
