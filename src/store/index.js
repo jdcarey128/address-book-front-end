@@ -57,6 +57,9 @@ export default createStore({
       const contacts = state.contacts.map(contact => contact.last_name[0].toUpperCase())
       const distinctContacts = [...new Set(contacts)]
       return distinctContacts.sort()
+    },
+    getContact: (state) => (id) => {
+      return state.contacts.filter(contact => contact.id === parseInt(id))
     }
   },
   modules: {
