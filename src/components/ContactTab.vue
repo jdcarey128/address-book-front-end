@@ -1,6 +1,6 @@
 <template>
   <div class=contacts>
-    <div class="contact-tab-title">
+    <div class="contact-tab-title" @click="$store.dispatch('setContactsDisplay', 'All')">
       Contacts
     </div>
     <div v-for="(contact, index) in contactCategories" class="contact-tab-list" :key="index">
@@ -51,6 +51,7 @@ export default {
     transition: all 0.25s ease;
     &:hover {
       color: #42b983;
+      background-color: #2c3e50;
       cursor: pointer;
       transform: scale(1.1, 1.1);
       font-weight: bold;
