@@ -4,23 +4,18 @@
       <ContactTab/>
     </div>
     <div class="home-contact-info-wrapper">
-      <ContactInfoCard/>
+      <ContactsDisplay/>
     </div>
   </div>
 </template>
 
 <script>
 import ContactTab from '@/components/ContactTab.vue'
-import ContactInfoCard from '@/components/ContactInfoCard.vue'
+import ContactsDisplay from '@/components/ContactsDisplay.vue'
 
 export default {
   name: 'Home',
-  components: { ContactTab, ContactInfoCard },
-  data () {
-    return {
-      title: 'Home'
-    }
-  }
+  components: { ContactTab, ContactsDisplay }
 }
 </script>
 

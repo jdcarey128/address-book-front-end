@@ -1,45 +1,23 @@
 <template>
-  <div v-if="$store.state.contactsDisplay !== ''" class="contact-info-cards">
-    <h1>Contacts: {{ $store.state.contactsDisplay }}</h1>
-    <div v-if="$store.state.contactsDisplay === 'All'">
-      <div v-for="contact in $store.getters.getAllContacts" class="contact-info-card" :key=contact.id>
-        <p> {{ contact.first_name }} {{ contact.last_name }}</p>
-        <p v-if="contact.phone_number">Phone number: {{ contact.phone_number}}</p>
-        <p v-if="contact.street_address_2"> {{ contact.street_address }}, {{ contact.street_address_2 }}<br>
-        {{ contact.city }}, {{ contact.state }} {{ contact.zipcode }}
-        </p>
-        <p v-else> {{ contact.street_address }}<br>
-        {{ contact.city }}, {{ contact.state }} {{ contact.zipcode }}
-        </p>
-      </div>
-    </div>
-    <div v-for="contact in $store.getters.getFilteredContacts($store.state.contactsDisplay)" class="contact-info-card" :key=contact.id>
-      <p> {{ contact.first_name }} {{ contact.last_name }}</p>
-      <p v-if="contact.phone_number">Phone number: {{ contact.phone_number}}</p>
-      <p v-if="contact.street_address_2"> {{ contact.street_address }}, {{ contact.street_address_2 }}<br>
-      {{ contact.city }}, {{ contact.state }} {{ contact.zipcode }}
-      </p>
-      <p v-else> {{ contact.street_address }}<br>
-      {{ contact.city }}, {{ contact.state }} {{ contact.zipcode }}
-      </p>
-    </div>
-  </div>
-  <div v-else>
-    <h1>Home</h1>
-    <h3>Welcome {{ user.first_name }}!</h3>
-    <p>Click on a contact tab to view contacts by last name.</p>
+  <div class="contact-info-card">
+    <p> {{ contact.first_name }} {{ contact.last_name }}</p>
+    <p v-if="contact.phone_number">Phone number: {{ contact.phone_number}}</p>
+    <p v-if="contact.street_address_2"> {{ contact.street_address }}, {{ contact.street_address_2 }}<br>
+    {{ contact.city }}, {{ contact.state }} {{ contact.zipcode }}
+    </p>
+    <p v-else> {{ contact.street_address }}<br>
+    {{ contact.city }}, {{ contact.state }} {{ contact.zipcode }}
+    </p>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: 'ContactInfoCard',
-  computed: {
-    filteredContacts () {
-      return this.$store.state.contactsDisplay
-    },
-    user () {
-      return this.$store.state.user
+  props: {
+    contact: {
+      type: Object,
+      required: true
     }
   }
 }
