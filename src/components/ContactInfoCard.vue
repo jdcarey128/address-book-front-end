@@ -1,4 +1,5 @@
 <template>
+  <router-link :to="{ name: 'UpdateContact', params: {id: contact.id} }">
   <div class="contact-info-card">
     <p> {{ contact.first_name }} {{ contact.last_name }}</p>
     <p v-if="contact.phone_number">Phone number: {{ contact.phone_number}}</p>
@@ -9,6 +10,7 @@
     {{ contact.city }}, {{ contact.state }} {{ contact.zipcode }}
     </p>
   </div>
+  </router-link>
 </template>
 
 <script lang="ts">
