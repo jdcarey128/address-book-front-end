@@ -2,6 +2,8 @@
   <div class='create-contact-form-wrapper'>
     <FormContact
       pageTitle="Create Contact"
+      contact={}
+      method='create'
     />
   </div>
 </template>
