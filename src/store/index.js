@@ -36,6 +36,11 @@ export default createStore({
         }
         return 0
       })
+    },
+    getContactCategories (state) {
+      const contacts = state.contacts.map(contact => contact.last_name[0].toUpperCase())
+      const distinctContacts = [...new Set(contacts)]
+      return distinctContacts.sort()
     }
   },
   modules: {

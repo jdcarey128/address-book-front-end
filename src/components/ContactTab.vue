@@ -19,9 +19,7 @@ export default {
   name: 'ContactTab',
   computed: {
     contactCategories () {
-      const contacts = this.$store.state.contacts.map(contact => contact.last_name[0].toUpperCase())
-      const distinctContacts = [...new Set(contacts)]
-      return distinctContacts.sort()
+      return this.$store.getters.getContactCategories
     }
   }
 }
