@@ -1,0 +1,111 @@
+<template>
+  <h1>Create Contact</h1>
+  <form class="create-contact-form" @submit.prevent="createNewContact">
+    <div class="create-contact-form-group" id="create-contact-name">
+      <label for="firstName">First Name: </label>
+      <input v-model="firstName" id="firstName" type="text" placeholder="First Name">
+      <br>
+      <p v-if="!firstNameIsValid" class="form-error-message">First name is required</p>
+      <br v-else>
+      <label for="lastName">Last Name: </label>
+      <input v-model="lastName" id="lastName" type="text" placeholder="Last Name">
+      <br>
+      <p v-if="!lastNameIsValid" class="form-error-message">Last name is required</p>
+      <br v-else>
+      <label for="groupType">Contact Group: </label>
+      <select id="groupType" v-model="groupType" >
+        <option :value="option.value" v-for="(option, index) in contactGroups" :key="index">
+          {{ option.name }}
+        </option>
+      </select>
+    </div>
+    <br>
+    <div class="create-contact-form-group" id="create-contact-phone">
+      <label for="phoneNumber">Phone Number: </label>
+      <input v-model="phoneNumber" id="phoneNumber" type="tel" placeholder="Phone Number">
+    </div>
+    <br>
+    <div class="create-contact-form-group" id="create-contact-address">
+      <label for="streetAddress">Street Address: </label>
+      <input v-model="streetAddress" id="streetAddress" type="text" placeholder="1624 W. Hope St.">
+      <p v-if="!streetAddressIsValid" class="form-error-message">Street Address is required</p>
+      <br v-else>
+      <label for="streetAddress">Street Address 2: </label>
+      <input v-model="streetAddress2" id="streetAddress2" type="text" placeholder="unit 4A">
+      <br>
+      <br>
+      <label for="city">City: </label>
+      <input v-model="city" id="city" type="text" placeholder="City">
+      <p v-if="!cityIsValid" class="form-error-message">Cityis required</p>
+      <br v-else>
+      <label for="state">State: </label>
+      <input v-model="state" id="state" type="text" placeholder="State">
+      <p v-if="!stateIsValid" class="form-error-message">State is required</p>
+      <br v-else>
+      <label for="zipcdoe">Zipcode: </label>
+      <input v-model="zipcode" id="zipcode" type="text" placeholder="Zipcode">
+      <p v-if="!zipcodeIsValid" class="form-error-message">Zipcode is required</p>
+      <br v-else>
+    </div>
+  </form>
+</template>
+
+<script>
+export default {
+  name: 'CreateContact',
+  data () {
+    return {
+      firstName: null,
+      lastName: null,
+      groupType: 'friend',
+      phoneNumber: null,
+      streetAddress: null,
+      streetAddress2: null,
+      city: null,
+      state: null,
+      zipcode: null,
+      contactGroups: [
+        { value: 'friend', name: 'Friend' },
+        { value: 'family', name: 'Family' },
+        { value: 'emergency', name: 'Emergency' },
+        { value: 'coworker', name: 'Coworker' },
+        { value: 'classmate', name: 'Classmate' },
+        { value: 'other', name: 'Other' }
+      ]
+    }
+  },
+  computed: {
+    firstNameIsValid () {
+      return !!this.firstName
+    },
+    lastNameIsValid () {
+      return !!this.lastName
+    },
+    streetAddressIsValid () {
+      return !!this.streetAddress
+    },
+    cityIsValid () {
+      return !!this.city
+    },
+    stateIsValid () {
+      return !!this.state
+    },
+    zipcodeIsValid () {
+      return !!this.zipcode
+    }
+  },
+  methods: {
+
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+  .create-contact-form {
+    padding: 10px;
+  }
+  .form-error-message {
+    color: red;
+    font-size: 12px;
+  }
+</style>
