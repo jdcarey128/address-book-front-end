@@ -118,6 +118,8 @@ export default {
         zipcode: this.zipcode
       }
       this.$store.dispatch('createContact', contactDetails)
+      this.$store.dispatch('setContactsDisplay', this.lastName[0].toUpperCase())
+      this.$router.push({ name: 'Home' })
     }
   }
 }
