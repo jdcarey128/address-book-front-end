@@ -43,6 +43,9 @@
       font-weight: bold;
       color: #42b983;
       text-decoration: none;
+      &:hover {
+        color: white;
+      }
     }
   }
 }
