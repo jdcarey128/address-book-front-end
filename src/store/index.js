@@ -28,7 +28,17 @@ export default createStore({
       const filteredContacts = state.contacts.filter(contact =>
         contact.last_name[0].toUpperCase() === contactsLetter
       )
-      return filteredContacts
+      return filteredContacts.sort(function (a, b) {
+        var nameA = a.last_name.toUpperCase()
+        var nameB = b.last_name.toUpperCase()
+        if (nameA < nameB) {
+          return -1
+        }
+        if (nameA > nameB) {
+          return 1
+        }
+        return 0
+      })
     },
     getAllContacts (state) {
       return state.contacts.sort(function (a, b) {
