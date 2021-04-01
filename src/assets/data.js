@@ -31,13 +31,24 @@ export const data = {
     {
       first_name: 'Beth',
       last_name: 'Harmon',
-      group: 'nemesis',
+      group: 'friend',
       phone_number: '645-478-4545',
       street_address: '4545 S Kentucky dr',
       street_address_2: null,
       city: 'Louisville',
       state: 'KY',
       zipcode: '01234'
+    },
+    {
+      first_name: 'Harry',
+      last_name: 'Carpenter',
+      group: 'business associate',
+      phone_number: null,
+      street_address: '18826 W Main St',
+      street_address_2: null,
+      city: 'Springfield',
+      state: 'OH',
+      zipcode: '45555'
     }
   ]
 }
