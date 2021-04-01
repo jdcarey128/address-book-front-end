@@ -52,7 +52,7 @@
       <br v-else>
     </div>
     <div>
-      <button :disabled="!formIsValid">Create Contact</button>
+      <button class="create-contact-form-button" :disabled="!formIsValid">Create Contact</button>
     </div>
   </form>
 </template>
@@ -128,6 +128,28 @@ export default {
 <style lang="scss" scoped>
   .create-contact-form {
     padding: 10px;
+    .create-contact-form-group {
+      display: block;
+      margin: auto;
+      padding: 20px;
+      width: 50%;
+      background-color: white;
+      text-align: center;
+      border-radius: 5px;
+      border: 1px solid #2c3e50;
+    }
+    .create-contact-form-button {
+      margin-top: 10px;
+      margin-bottom: 50px;
+      border-radius: 5px;
+      border: 1px solid #2c3e50;
+      transition: all 0.25s ease;
+      &:hover:enabled {
+        cursor: pointer;
+        background-color: #42b983;
+        color: white;
+      }
+    }
   }
   .form-error-message {
     color: red;
