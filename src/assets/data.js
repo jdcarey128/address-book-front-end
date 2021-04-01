@@ -7,6 +7,7 @@ export const data = {
   },
   contacts: [
     {
+      id: 1,
       first_name: 'Em',
       last_name: 'Carey',
       group: 'friend',
@@ -18,6 +19,7 @@ export const data = {
       zipcode: '80019'
     },
     {
+      id: 2,
       first_name: 'Bruce',
       last_name: 'Wayne',
       group: 'business associate',
@@ -29,6 +31,7 @@ export const data = {
       zipcode: '11111'
     },
     {
+      id: 3,
       first_name: 'Beth',
       last_name: 'Harmon',
       group: 'friend',
@@ -40,6 +43,7 @@ export const data = {
       zipcode: '01234'
     },
     {
+      id: 4,
       first_name: 'Harry',
       last_name: 'Carpenter',
       group: 'business associate',
