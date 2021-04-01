@@ -13,6 +13,9 @@ export default createStore({
     },
     CREATE_CONTACT (state, contactDetails) {
       state.contacts.push(...contactDetails)
+    },
+    UPDATE_CONTACT (state, contacts) {
+      state.contacts = contacts
     }
   },
   actions: {
@@ -20,6 +23,15 @@ export default createStore({
       commit('SET_CONTACTS_DISPLAY', letter)
     },
     createContact ({ commit }, contactDetails) {
+      // make api call to create contact
+      // returns all details needed
+      commit('CREATE_CONTACT', [contactDetails])
+    },
+    updateContact ({ commit }, contactDetails) {
+      // this will make an update call to backend
+      // then it will make a call to retrieve all contacts
+      // and use the new contact list to update state.contacts
+      // TODO: for now, have as create contact
       commit('CREATE_CONTACT', [contactDetails])
     }
   },
