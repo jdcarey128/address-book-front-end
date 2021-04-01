@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="{ name: 'EditContact', params: {id: contact.id} }">
+  <router-link :to="{ name: 'UpdateContact', params: {id: contact.id} }">
   <div class="contact-info-card">
     <p> {{ contact.first_name }} {{ contact.last_name }}</p>
     <p v-if="contact.phone_number">Phone number: {{ contact.phone_number}}</p>

@@ -4,12 +4,12 @@
 
     <div class="contact-form-group">
       <label for="firstName">First Name: </label>
-      <input v-model="firstName" id="firstName" type="text" :placeholder="firstName || 'First Name'">
+      <input v-model="firstName" id="firstName" type="text" placeholder="First Name">
       <br>
       <p v-if="!firstNameIsValid" class="form-error-message">First name is required</p>
       <br v-else>
       <label for="lastName">Last Name: </label>
-      <input v-model="lastName" id="lastName" type="text" :placeholder="lastName || 'Last Name'">
+      <input v-model="lastName" id="lastName" type="text" placeholder="Last Name">
       <br>
       <p v-if="!lastNameIsValid" class="form-error-message">Last name is required</p>
       <br v-else>
@@ -24,32 +24,32 @@
 
     <div class="contact-form-group">
       <label for="phoneNumber">Phone Number: </label>
-      <input v-model="phoneNumber" id="phoneNumber" type="tel" :placeholder="phoneNumber || 'Phone Number'">
+      <input v-model="phoneNumber" id="phoneNumber" type="tel" placeholder='Phone Number'>
     </div>
     <br>
 
     <div class="contact-form-group">
       <label for="streetAddress">Street Address: </label>
-      <input v-model="streetAddress" id="streetAddress" type="text" :placeholder="streetAddress || '1624 W. Hope St.'">
+      <input v-model="streetAddress" id="streetAddress" type="text" placeholder='1624 W. Hope St.'>
       <br>
       <p v-if="!streetAddressIsValid" class="form-error-message">Street Address is required</p>
       <br v-else>
       <label for="streetAddress">Street Address 2: </label>
-      <input v-model="streetAddress2" id="streetAddress2" type="text" :placeholder="streetAddress2 || 'unit 4A'">
+      <input v-model="streetAddress2" id="streetAddress2" type="text" placeholder='unit 4A'>
       <br>
       <br>
       <label for="city">City: </label>
-      <input v-model="city" id="city" type="text" :placeholder="city || 'City'">
+      <input v-model="city" id="city" type="text" placeholder='City'>
       <br>
       <p v-if="!cityIsValid" class="form-error-message">City is required</p>
       <br v-else>
       <label for="state">State: </label>
-      <input v-model="state" id="state" type="text" :placeholder="state || 'State'">
+      <input v-model="state" id="state" type="text" placeholder='State'>
       <br>
       <p v-if="!stateIsValid" class="form-error-message">State is required</p>
       <br v-else>
       <label for="zipcdoe">Zipcode: </label>
-      <input v-model="zipcode" id="zipcode" type="text" :placeholder="zipcode || 'Zipcode'">
+      <input v-model="zipcode" id="zipcode" type="text" placeholder='Zipcode'>
       <br>
       <p v-if="!zipcodeIsValid" class="form-error-message">Zipcode is required</p>
       <br v-else>
@@ -62,24 +62,32 @@
 
 <script>
 export default {
-  name: 'CreateContact',
+  name: 'FormContact',
   props: {
     pageTitle: {
+      type: String,
+      required: true
+    },
+    contact: {
+      type: Object,
+      required: true
+    },
+    method: {
       type: String,
       required: true
     }
   },
   data () {
     return {
-      firstName: null,
-      lastName: null,
-      groupType: 'friend',
-      phoneNumber: null,
-      streetAddress: null,
-      streetAddress2: null,
-      city: null,
-      state: null,
-      zipcode: null,
+      firstName: this.contact.first_name,
+      lastName: this.contact.last_name,
+      groupType: this.contact.group || 'friend',
+      phoneNumber: this.contact.phone_number,
+      streetAddress: this.contact.street_address,
+      streetAddress2: this.contact.street_address_2,
+      city: this.contact.city,
+      state: this.contact.state,
+      zipcode: this.contact.zipcode,
       contactGroups: [
         { value: 'friend', name: 'Friend' },
         { value: 'family', name: 'Family' },
@@ -126,7 +134,12 @@ export default {
         state: this.state,
         zipcode: this.zipcode
       }
-      this.$store.dispatch('createContact', contactDetails)
+      if (this.method === 'update') {
+        this.$store.dispatch('updateContact', contactDetails)
+      }
+      if (this.method === 'create') {
+        this.$store.dispatch('createContact', contactDetails)
+      }
       this.$store.dispatch('setContactsDisplay', this.lastName[0].toUpperCase())
       this.$router.push({ name: 'Home' })
     }
