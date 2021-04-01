@@ -28,6 +28,7 @@
     <div class="create-contact-form-group" id="create-contact-address">
       <label for="streetAddress">Street Address: </label>
       <input v-model="streetAddress" id="streetAddress" type="text" placeholder="1624 W. Hope St.">
+      <br>
       <p v-if="!streetAddressIsValid" class="form-error-message">Street Address is required</p>
       <br v-else>
       <label for="streetAddress">Street Address 2: </label>
@@ -36,16 +37,22 @@
       <br>
       <label for="city">City: </label>
       <input v-model="city" id="city" type="text" placeholder="City">
+      <br>
       <p v-if="!cityIsValid" class="form-error-message">Cityis required</p>
       <br v-else>
       <label for="state">State: </label>
       <input v-model="state" id="state" type="text" placeholder="State">
+      <br>
       <p v-if="!stateIsValid" class="form-error-message">State is required</p>
       <br v-else>
       <label for="zipcdoe">Zipcode: </label>
       <input v-model="zipcode" id="zipcode" type="text" placeholder="Zipcode">
+      <br>
       <p v-if="!zipcodeIsValid" class="form-error-message">Zipcode is required</p>
       <br v-else>
+    </div>
+    <div>
+      <button :disabled="!formIsValid">Create Contact</button>
     </div>
   </form>
 </template>
@@ -92,10 +99,26 @@ export default {
     },
     zipcodeIsValid () {
       return !!this.zipcode
+    },
+    formIsValid () {
+      return this.firstNameIsValid && this.lastNameIsValid && this.streetAddressIsValid && this.cityIsValid && this.stateIsValid && this.zipcodeIsValid
     }
   },
   methods: {
-
+    createNewContact () {
+      const contactDetails = {
+        first_name: this.firstName,
+        last_name: this.lastName,
+        group: this.groupType,
+        street_address: this.streetAddress,
+        street_address_2: this.streetAddress2,
+        phone_number: this.phoneNumber,
+        city: this.city,
+        state: this.state,
+        zipcode: this.zipcode
+      }
+      this.$store.dispatch('createContact', contactDetails)
+    }
   }
 }
 </script>

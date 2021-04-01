@@ -10,11 +10,17 @@ export default createStore({
   mutations: {
     SET_CONTACTS_DISPLAY (state, letter) {
       state.contactsDisplay = letter
+    },
+    CREATE_CONTACT (state, contactDetails) {
+      state.contacts.push(...contactDetails)
     }
   },
   actions: {
     setContactsDisplay ({ commit }, letter) {
       commit('SET_CONTACTS_DISPLAY', letter)
+    },
+    createContact ({ commit }, contactDetails) {
+      commit('CREATE_CONTACT', [contactDetails])
     }
   },
   getters: {
