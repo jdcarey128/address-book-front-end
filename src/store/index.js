@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import { data } from '@/assets/data.js'
+import axios from 'axios'
 
 export default createStore({
   state: {
@@ -16,6 +17,9 @@ export default createStore({
     },
     UPDATE_CONTACT (state, contacts) {
       state.contacts = contacts
+    },
+    UPDATE_CONTACTS (state, updatedContacts) {
+      state.contacts = [...updatedContacts]
     }
   },
   actions: {
@@ -23,16 +27,22 @@ export default createStore({
       commit('SET_CONTACTS_DISPLAY', letter)
     },
     createContact ({ commit }, contactDetails) {
-      // make api call to create contact
-      // returns all details needed
-      commit('CREATE_CONTACT', [contactDetails])
+      axios.post('http://127.0.0.1:5000/users/4/contacts', {
+        ...contactDetails
+      }).then(function (response) {
+        commit('CREATE_CONTACT', [response.data])
+      })
     },
     updateContact ({ commit }, contactDetails) {
-      // this will make an update call to backend
-      // then it will make a call to retrieve all contacts
-      // and use the new contact list to update state.contacts
-      // TODO: for now, have as create contact
-      commit('CREATE_CONTACT', [contactDetails])
+      console.log('contact details to update', contactDetails)
+      axios.patch(`http://127.0.0.1:5000/users/4/contacts/${contactDetails.id}`, {
+        ...contactDetails
+      }).then(function (response) {
+        axios.get('http://127.0.0.1:5000/users/4/contacts').then(function (response) {
+          console.log('response after update', response.data.contacts)
+          commit('UPDATE_CONTACTS', response.data.contacts)
+        })
+      })
     }
   },
   getters: {
