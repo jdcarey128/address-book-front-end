@@ -4,6 +4,7 @@
       pageTitle="Edit Contact"
       :contact="contact"
       method='update'
+      :id="id"
     />
   </div>
 </template>
