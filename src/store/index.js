@@ -4,7 +4,7 @@ import axios from 'axios'
 
 export default createStore({
   state: {
-    user: data.user,
+    user: '',
     contacts: data.contacts,
     contactsDisplay: ''
   },
@@ -20,6 +20,9 @@ export default createStore({
     },
     UPDATE_CONTACTS (state, updatedContacts) {
       state.contacts = [...updatedContacts]
+    },
+    CREATE_USER (state, userDetails) {
+      state.user = userDetails
     }
   },
   actions: {
@@ -34,14 +37,21 @@ export default createStore({
       })
     },
     updateContact ({ commit }, contactDetails) {
-      console.log('contact details to update', contactDetails)
       axios.patch(`http://127.0.0.1:5000/users/4/contacts/${contactDetails.id}`, {
         ...contactDetails
       }).then(function (response) {
         axios.get('http://127.0.0.1:5000/users/4/contacts').then(function (response) {
-          console.log('response after update', response.data.contacts)
           commit('UPDATE_CONTACTS', response.data.contacts)
         })
+      })
+    },
+    createUser ({ commit }, userDetails) {
+      axios.post('http://127.0.0.1:5000/users', {
+        first_name: userDetails.first_name,
+        last_name: userDetails.last_name,
+        email: userDetails.email
+      }).then(function (response) {
+        commit('CREATE_USER', response.data)
       })
     }
   },
