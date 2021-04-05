@@ -13,17 +13,21 @@
 <script>
 import { ref } from 'vue'
 import firebase from 'firebase'
+import { useStore } from 'vuex'
 
 export default {
   setup () {
     const email = ref('')
     const password = ref('')
+    const store = useStore()
 
     const Login = () => {
       firebase
         .auth()
         .signInWithEmailAndPassword(email.value, password.value)
-        .then(data => console.log(data))
+        .then(function () {
+          store.dispatch('loginUser', email.value)
+        })
         .catch(err => alert(err.message))
     }
     return {
