@@ -23,6 +23,9 @@ export default createStore({
     },
     CREATE_USER (state, userDetails) {
       state.user = userDetails
+    },
+    SET_USER_CONTACTS (state, userContacts) {
+      state.contacts = userContacts
     }
   },
   actions: {
@@ -45,13 +48,20 @@ export default createStore({
         })
       })
     },
-    createUser ({ commit }, userDetails) {
+    createUser ({ commit, dispatch }, userDetails) {
       axios.post('http://127.0.0.1:5000/users', {
         first_name: userDetails.first_name,
         last_name: userDetails.last_name,
         email: userDetails.email
       }).then(function (response) {
         commit('CREATE_USER', response.data)
+        const userId = response.data.id
+        dispatch('setUserContacts', userId)
+      })
+    },
+    setUserContacts ({ commit }, userId) {
+      axios.get(`http://127.0.0.1:5000/users/${userId}/contacts`).then(function (response) {
+        commit('SET_USER_CONTACTS', response.data)
       })
     }
   },
@@ -86,12 +96,21 @@ export default createStore({
       })
     },
     getContactCategories (state) {
-      const contacts = state.contacts.map(contact => contact.last_name[0].toUpperCase())
-      const distinctContacts = [...new Set(contacts)]
-      return distinctContacts.sort()
+      if (state.contacts.length > 0) {
+        const contacts = state.contacts.map(contact => contact.last_name[0].toUpperCase())
+        const distinctContacts = [...new Set(contacts)]
+        return distinctContacts.sort()
+      } else {
+        return []
+      }
     },
     getContact: (state) => (id) => {
       return state.contacts.filter(contact => contact.id === parseInt(id))
+    },
+    getUserId (state) {
+      if (state.user) {
+        return state.user.id
+      }
     }
   },
   modules: {
