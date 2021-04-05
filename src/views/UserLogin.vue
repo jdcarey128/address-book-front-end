@@ -4,8 +4,8 @@
     <form @submit.prevent="Login">
       <input type="text" placeholder="Email" v-model="email" />
       <input type="password" placeholder="Password" v-model="password" />
-      <input type="submit" value="Login">
-      <p>Need an account? <router-link to="/register">Register Here</router-link></p>
+      <input class='submit-button' type="submit" value="Login">
+      <p>Need an account? <span class='register-redirect'><router-link to="/register">Register Here</router-link></span></p>
     </form>
   </div>
 </template>
@@ -39,6 +39,15 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+  .submit-button {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  .register-redirect {
+    &:hover {
+      color: #42b983;
+    }
+  }
 </style>
