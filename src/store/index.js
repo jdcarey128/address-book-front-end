@@ -80,6 +80,15 @@ export default createStore({
     },
     logoutUser ({ commit }) {
       commit('LOGOUT_USER')
+    },
+    deleteContact ({ commit, state }, contactId) {
+      axios.delete(`http://127.0.0.1:5000/users/${state.user.id}/contacts/${contactId}`)
+        .then(function (response) {
+          axios.get(`http://127.0.0.1:5000/users/${state.user.id}/contacts`)
+            .then(function (response) {
+              commit('UPDATE_CONTACTS', response.data.contacts)
+            })
+        })
     }
   },
   getters: {
