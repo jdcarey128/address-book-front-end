@@ -1,11 +1,10 @@
 import { createStore } from 'vuex'
-import { data } from '@/assets/data.js'
 import axios from 'axios'
 
 export default createStore({
   state: {
     user: '',
-    contacts: data.contacts,
+    contacts: [],
     contactsDisplay: ''
   },
   mutations: {
@@ -21,29 +20,29 @@ export default createStore({
     UPDATE_CONTACTS (state, updatedContacts) {
       state.contacts = [...updatedContacts]
     },
-    CREATE_USER (state, userDetails) {
+    SET_USER (state, userDetails) {
       state.user = userDetails
     },
     SET_USER_CONTACTS (state, userContacts) {
-      state.contacts = userContacts
+      state.contacts = [...userContacts]
     }
   },
   actions: {
-    setContactsDisplay ({ commit }, letter) {
+    setContactsDisplay ({ commit, state }, letter) {
       commit('SET_CONTACTS_DISPLAY', letter)
     },
-    createContact ({ commit }, contactDetails) {
-      axios.post('http://127.0.0.1:5000/users/4/contacts', {
+    createContact ({ commit, state }, contactDetails) {
+      axios.post(`http://127.0.0.1:5000/users/${state.user.id}/contacts`, {
         ...contactDetails
       }).then(function (response) {
         commit('CREATE_CONTACT', [response.data])
       })
     },
-    updateContact ({ commit }, contactDetails) {
-      axios.patch(`http://127.0.0.1:5000/users/4/contacts/${contactDetails.id}`, {
+    updateContact ({ commit, state }, contactDetails) {
+      axios.patch(`http://127.0.0.1:5000/users/${state.user.id}/contacts/${contactDetails.id}`, {
         ...contactDetails
       }).then(function (response) {
-        axios.get('http://127.0.0.1:5000/users/4/contacts').then(function (response) {
+        axios.get(`http://127.0.0.1:5000/users/${state.user.id}/contacts`).then(function (response) {
           commit('UPDATE_CONTACTS', response.data.contacts)
         })
       })
@@ -54,7 +53,7 @@ export default createStore({
         last_name: userDetails.last_name,
         email: userDetails.email
       }).then(function (response) {
-        commit('CREATE_USER', response.data)
+        commit('SET_USER', response.data)
         const userId = response.data.id
         dispatch('setUserContacts', userId)
       })
@@ -63,37 +62,50 @@ export default createStore({
       axios.get(`http://127.0.0.1:5000/users/${userId}/contacts`).then(function (response) {
         commit('SET_USER_CONTACTS', response.data)
       })
+    },
+    loginUser ({ commit, dispatch }, userEmail) {
+      axios.post('http://127.0.0.1:5000/login', {
+        email: userEmail
+      }).then(function (response) {
+        commit('SET_USER', response.data)
+        const userId = response.data.id
+        dispatch('setUserContacts', userId)
+      })
     }
   },
   getters: {
     getFilteredContacts: (state) => (contactsLetter) => {
-      const filteredContacts = state.contacts.filter(contact =>
-        contact.last_name[0].toUpperCase() === contactsLetter
-      )
-      return filteredContacts.sort(function (a, b) {
-        var nameA = a.last_name.toUpperCase()
-        var nameB = b.last_name.toUpperCase()
-        if (nameA < nameB) {
-          return -1
-        }
-        if (nameA > nameB) {
-          return 1
-        }
-        return 0
-      })
+      if (state.contacts.length > 0) {
+        const filteredContacts = state.contacts.filter(contact =>
+          contact.last_name[0].toUpperCase() === contactsLetter
+        )
+        return filteredContacts.sort(function (a, b) {
+          var nameA = a.last_name.toUpperCase()
+          var nameB = b.last_name.toUpperCase()
+          if (nameA < nameB) {
+            return -1
+          }
+          if (nameA > nameB) {
+            return 1
+          }
+          return 0
+        })
+      }
     },
     getAllContacts (state) {
-      return state.contacts.sort(function (a, b) {
-        var nameA = a.last_name.toUpperCase()
-        var nameB = b.last_name.toUpperCase()
-        if (nameA < nameB) {
-          return -1
-        }
-        if (nameA > nameB) {
-          return 1
-        }
-        return 0
-      })
+      if (state.contacts.length > 0) {
+        return state.contacts.sort(function (a, b) {
+          var nameA = a.last_name.toUpperCase()
+          var nameB = b.last_name.toUpperCase()
+          if (nameA < nameB) {
+            return -1
+          }
+          if (nameA > nameB) {
+            return 1
+          }
+          return 0
+        })
+      }
     },
     getContactCategories (state) {
       if (state.contacts.length > 0) {
@@ -106,11 +118,6 @@ export default createStore({
     },
     getContact: (state) => (id) => {
       return state.contacts.filter(contact => contact.id === parseInt(id))
-    },
-    getUserId (state) {
-      if (state.user) {
-        return state.user.id
-      }
     }
   },
   modules: {
