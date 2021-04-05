@@ -15,21 +15,10 @@
 <script>
 import ContactTab from '@/components/ContactTab.vue'
 import ContactsDisplay from '@/components/ContactsDisplay.vue'
-// import { beforeMount } from 'vue'
-// import { useStore } from 'vuex'
-// import { onBeforeMount } from 'vue'
-// import firebase from 'firebase'
 
 export default {
   name: 'Home',
   components: { ContactTab, ContactsDisplay }
-  // setup () {
-  //   const store = useStore()
-  //   const userId = store.state.user.id
-  //   onBeforeMount(function () {
-  //     store.dispatch('setUserContacts', userId)
-  //   })
-  // }
 }
 </script>
 
