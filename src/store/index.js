@@ -24,7 +24,12 @@ export default createStore({
       state.user = userDetails
     },
     SET_USER_CONTACTS (state, userContacts) {
-      state.contacts = [...userContacts]
+      state.contacts = userContacts
+    },
+    LOGOUT_USER (state) {
+      state.user = ''
+      state.contacts = []
+      state.contactsDisplay = ''
     }
   },
   actions: {
@@ -59,9 +64,10 @@ export default createStore({
       })
     },
     setUserContacts ({ commit }, userId) {
-      axios.get(`http://127.0.0.1:5000/users/${userId}/contacts`).then(function (response) {
-        commit('SET_USER_CONTACTS', response.data)
-      })
+      axios.get(`http://127.0.0.1:5000/users/${userId}/contacts`)
+        .then(function (response) {
+          commit('SET_USER_CONTACTS', response.data.contacts)
+        })
     },
     loginUser ({ commit, dispatch }, userEmail) {
       axios.post('http://127.0.0.1:5000/login', {
@@ -71,6 +77,9 @@ export default createStore({
         const userId = response.data.id
         dispatch('setUserContacts', userId)
       })
+    },
+    logoutUser ({ commit }) {
+      commit('LOGOUT_USER')
     }
   },
   getters: {
