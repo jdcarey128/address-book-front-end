@@ -29,7 +29,7 @@ export default {
       firebase
         .auth()
         .createUserWithEmailAndPassword(email.value, password.value)
-        .then(() => {
+        .then(function () {
           const userDetails = {
             email: email.value,
             first_name: firstName.value,
