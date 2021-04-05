@@ -3,6 +3,8 @@ import Home from '../views/Home.vue'
 import Profile from '../views/Profile.vue'
 import CreateContact from '../views/CreateContact.vue'
 import UpdateContact from '../views/UpdateContact.vue'
+import UserLogin from '../views/UserLogin.vue'
+import UserRegister from '../views/UserRegister.vue'
 
 const routes = [
   {
@@ -25,6 +27,16 @@ const routes = [
     name: 'UpdateContact',
     component: UpdateContact,
     props: true
+  },
+  {
+    path: '/login',
+    name: 'UserLogin',
+    component: UserLogin
+  },
+  {
+    path: '/register',
+    name: 'UserRegister',
+    component: UserRegister
   }
 ]
 

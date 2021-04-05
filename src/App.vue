@@ -1,16 +1,55 @@
 <template>
   <div class="navigation">
-    <div class='navigation_logo'>#Logo_here</div>
+    <div class='navigation_logo'>
+      <img :src="appImage" alt="Your Dope Address Book" class='navigation_logo'>
+    </div>
     <div class='navigation_user'>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/profile">Profile</router-link> |
-      <router-link to="#">Log Out</router-link>
+      <router-link v-if="store.state.user" to="/">Home | </router-link>
+      <!-- <router-link to="/profile">Profile</router-link> | -->
+      <span @click='Logout'>Logout</span>
     </div>
   </div>
   <router-view/>
 </template>
 
 <script>
+import { onBeforeMount } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import { useStore } from 'vuex'
+import firebase from 'firebase'
+import image from '@/assets/book.png'
+
+export default {
+  setup () {
+    const router = useRouter()
+    const route = useRoute()
+    const store = useStore()
+    const appImage = image
+
+    onBeforeMount(() => {
+      firebase.auth().onAuthStateChanged((user) => {
+        if (!user) {
+          router.replace('/login')
+        } else if (route.path === '/login' || route.path === '/register') {
+          router.replace('/')
+        }
+      })
+    })
+
+    const Logout = () => {
+      firebase
+        .auth()
+        .signOut()
+      store.dispatch('logoutUser')
+    }
+
+    return {
+      Logout,
+      store,
+      appImage
+    }
+  }
+}
 </script>
 
 <style lang="scss">
@@ -31,14 +70,19 @@
   background-color: #2c3e50;
   color: #42b983;
   padding: 20px;
-
   .navigation_logo {
-    font-size: 24px;
-    font-weight: bold;
+    width: 70px;
   }
-
   .navigation_user {
     font-weight: bold;
+    span {
+      cursor: pointer;
+      font-weight: bold;
+      color: #42b983;
+      &:hover {
+        color: white;
+      }
+    }
     a {
       font-weight: bold;
       color: #42b983;

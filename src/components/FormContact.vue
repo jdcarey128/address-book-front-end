@@ -75,6 +75,10 @@ export default {
     method: {
       type: String,
       required: true
+    },
+    id: {
+      type: Number,
+      required: false
     }
   },
   data () {
@@ -124,6 +128,7 @@ export default {
   methods: {
     createUpdateContact () {
       const contactDetails = {
+        id: this.id,
         first_name: this.firstName,
         last_name: this.lastName,
         group: this.groupType,

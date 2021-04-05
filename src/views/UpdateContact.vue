@@ -1,9 +1,10 @@
 <template>
   <div class='edit-contact-form-wrapper'>
     <FormContact
-      pageTitle="Edit Contact"
+      pageTitle="Update Contact"
       :contact="contact"
       method='update'
+      :id="id"
     />
   </div>
 </template>
@@ -11,7 +12,7 @@
 <script>
 import FormContact from '@/components/FormContact.vue'
 export default {
-  name: 'EditContact',
+  name: 'UpdateContact',
   components: { FormContact },
   props: {
     id: {
