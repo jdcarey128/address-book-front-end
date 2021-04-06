@@ -33,27 +33,27 @@ export default createStore({
     }
   },
   actions: {
-    setContactsDisplay ({ commit, state }, letter) {
+    setContactsDisplay ({ commit }, letter) {
       commit('SET_CONTACTS_DISPLAY', letter)
     },
     createContact ({ commit, state }, contactDetails) {
-      axios.post(`http://127.0.0.1:5000/users/${state.user.id}/contacts`, {
+      axios.post(`${process.env.VUE_APP_ROOT_API}/users/${state.user.id}/contacts`, {
         ...contactDetails
       }).then(function (response) {
         commit('CREATE_CONTACT', [response.data])
       })
     },
     updateContact ({ commit, state }, contactDetails) {
-      axios.patch(`http://127.0.0.1:5000/users/${state.user.id}/contacts/${contactDetails.id}`, {
+      axios.patch(`${process.env.VUE_APP_ROOT_API}/users/${state.user.id}/contacts/${contactDetails.id}`, {
         ...contactDetails
       }).then(function (response) {
-        axios.get(`http://127.0.0.1:5000/users/${state.user.id}/contacts`).then(function (response) {
+        axios.get(`${process.env.VUE_APP_ROOT_API}/users/${state.user.id}/contacts`).then(function (response) {
           commit('UPDATE_CONTACTS', response.data.contacts)
         })
       })
     },
     createUser ({ commit, dispatch }, userDetails) {
-      axios.post('http://127.0.0.1:5000/users', {
+      axios.post(`${process.env.VUE_APP_ROOT_API}/users`, {
         first_name: userDetails.first_name,
         last_name: userDetails.last_name,
         email: userDetails.email
@@ -64,13 +64,13 @@ export default createStore({
       })
     },
     setUserContacts ({ commit }, userId) {
-      axios.get(`http://127.0.0.1:5000/users/${userId}/contacts`)
+      axios.get(`${process.env.VUE_APP_ROOT_API}/users/${userId}/contacts`)
         .then(function (response) {
           commit('SET_USER_CONTACTS', response.data.contacts)
         })
     },
     loginUser ({ commit, dispatch }, userEmail) {
-      axios.post('http://127.0.0.1:5000/login', {
+      axios.post(`${process.env.VUE_APP_ROOT_API}/login`, {
         email: userEmail
       }).then(function (response) {
         commit('SET_USER', response.data)
@@ -82,9 +82,9 @@ export default createStore({
       commit('LOGOUT_USER')
     },
     deleteContact ({ commit, state }, contactId) {
-      axios.delete(`http://127.0.0.1:5000/users/${state.user.id}/contacts/${contactId}`)
+      axios.delete(`${process.env.VUE_APP_ROOT_API}/users/${state.user.id}/contacts/${contactId}`)
         .then(function (response) {
-          axios.get(`http://127.0.0.1:5000/users/${state.user.id}/contacts`)
+          axios.get(`${process.env.VUE_APP_ROOT_API}/users/${state.user.id}/contacts`)
             .then(function (response) {
               commit('UPDATE_CONTACTS', response.data.contacts)
             })
