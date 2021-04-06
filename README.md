@@ -48,6 +48,7 @@ npm run serve
 ### Known issues 
 1. Currently, if the page is refreshed then the global state is reset, and the user information is no longer accessible. To re-access this information, simply logout, then log back in (this is why the logout link is constantly displayed).
 1. You can only use the same login credentials for either development or production. You will be able to log in in using the same credentials with both, but you will only be able to access user data from the database in the environment you used for initial setup.
+1. You can add information to contacts when updating them, but you must replace information that exists (eg. You would not be able to remove an unecessary field like phone number) 
 1. All testing has been done manually
 
 ### Author
