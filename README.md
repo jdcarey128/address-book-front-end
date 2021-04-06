@@ -3,7 +3,17 @@
 ### Back End 
 The back end for this app can be found [here](https://github.com/jdcarey128/address-book-backend)
 
-### Project setup
+### App in Production 
+Checkout the app hosted on Heroku [here](https://address-book-frontend-lt.herokuapp.com/login)
+
+Explore the app's functionality using the following credentials, or register your own account:  
+```
+email: test@example.com
+password: test1234
+```
+
+
+### Project local setup
 ```
 npm install
 ```
@@ -25,7 +35,7 @@ npm run serve
 1. Contacts are organized by last name in the Home side navigation bar. The current contact count is displayed for each tab. Clicking the tab will display all contacts for that category. Clicking 'Contacts' will display all user contacts alphabetically by last name.
 1. Click on the displayed user contact cards to update contacts
 
-### Future Additions
+### Future Additions/Refactors
 1. Add testing
 1. Modularize store components
 1. Standardize and DRY out CSS styling
@@ -33,8 +43,12 @@ npm run serve
 1. Add cookies to maintain state upon refresh 
 1. Add editable user profile 
 1. Add tooltips for page elements
+1. Filter contacts by groups 
 
 ### Known issues 
 1. Currently, if the page is refreshed then the global state is reset, and the user information is no longer accessible. To re-access this information, simply logout, then log back in (this is why the logout link is constantly displayed).
 1. You can only use the same login credentials for either development or production. You will be able to log in in using the same credentials with both, but you will only be able to access user data from the database in the environment you used for initial setup.
 1. All testing has been done manually
+
+### Author
+**Joshua Carey** - *Turing Graduate* - [GitHub Profile](https://github.com/jdcarey128) - [Turing Alum Portfolio](https://alumni.turing.io/alumni/joshua-carey) - [LinkedIn](https://www.linkedin.com/in/carey-joshua/)
