@@ -12,24 +12,51 @@
         </p>
       </div>
     </router-link>
-    <div @click='deleteContact(contact.id)' class="contact-delete">
-      <p>delete contact</p>
+    <div>
+      <span @click='queueDeletePopUp' class="contact-delete">
+        <p>delete contact</p>
+      </span>
     </div>
   </div>
+  <DeletePopUp v-if="showDeletePopUp"
+    :contactName="formatName(contact.first_name, contact.last_name)"
+    @confirmDelete="confirmDelete(contact)"
+    @cancelDelete="cancelDelete"
+  />
 </template>
 
-<script lang="ts">
+<script>
+import DeletePopUp from '@/components/DeletePopUp.vue'
+
 export default {
   name: 'ContactInfoCard',
+  components: {
+    DeletePopUp
+  },
   props: {
     contact: {
       type: Object,
       required: true
     }
   },
+  data () {
+    return {
+      showDeletePopUp: false
+    }
+  },
   methods: {
-    deleteContact (contact) {
-      this.$store.dispatch('deleteContact', contact)
+    queueDeletePopUp () {
+      this.showDeletePopUp = true
+    },
+    confirmDelete (contact) {
+      this.$store.dispatch('deleteContact', contact.id)
+      this.showDeletePopUp = false
+    },
+    cancelDelete () {
+      this.showDeletePopUp = false
+    },
+    formatName (firstName, lastName) {
+      return `${firstName} ${lastName}`
     }
   }
 }
@@ -54,9 +81,6 @@ export default {
   }
   .contact-delete {
     float: right;
-    justify-content: baseline;
-    text-align: right;
-    padding: 0px;
     &:hover {
       cursor: pointer;
       color: red;
