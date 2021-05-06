@@ -71,6 +71,7 @@ export default {
   color: #42b983;
   padding: 20px;
   .navigation_logo {
+    margin-left: 20px;
     width: 70px;
   }
   .navigation_user {
