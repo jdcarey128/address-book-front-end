@@ -52,4 +52,4 @@ npm run serve
 1. All testing has been done manually
 
 ### Author
-**Joshua Carey** - *Turing Graduate* - [GitHub Profile](https://github.com/jdcarey128) - [Turing Alum Portfolio](https://alumni.turing.io/alumni/joshua-carey) - [LinkedIn](https://www.linkedin.com/in/carey-joshua/)
+**Joshua Carey** - *Turing Graduate* - [GitHub Profile](https://github.com/jdcarey128) - [Turing Alum Portfolio](https://terminal.turing.edu/profiles/595) - [LinkedIn](https://www.linkedin.com/in/carey-joshua/)
